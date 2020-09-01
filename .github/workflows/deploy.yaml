@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      
+      - uses: actions/setup-node@v1
+      
+      - run: npm install
+      
+      - run: npm run prod
+
