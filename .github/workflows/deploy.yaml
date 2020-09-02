@@ -1,11 +1,9 @@
 name: Deploy Feature Management Application
 
-on: [push]
-#revert once pipeline is running correctly
-#on:
-#  push:
-#    branches:
-#      - master
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
