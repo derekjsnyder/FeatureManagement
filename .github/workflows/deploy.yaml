@@ -1,3 +1,5 @@
+name: Deploy Feature Management Application
+
 on:
   push:
     branches:
@@ -7,11 +9,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: 'Checkout'
+        uses: actions/checkout@master
       
-      - uses: actions/setup-node@v1
+      - name: 'Install Node' 
+        uses: actions/setup-node@v1
       
-      - run: npm install
+      - name: 'Install packages'
+        run: npm install
       
-      - run: npm run prod
-
+      - name: 'Build'
+        run: npm run prod
+      
+      - name: 'Deploy'
+        uses: lauchacarro/Azure-Storage-Action@master
+        with:
+          enabled-static-website: 'true'
+          folder: 'dist'
+          connection-string: ${{ secrets.CONNECTION_STRING }}
