@@ -29,7 +29,7 @@ jobs:
         run: npm run prod
       
       - name: 'Deploy'
-        uses: lauchacarro/Azure-Storage-Action@master
+        uses: lauchacarro/Azure-Storage-Action@v1.0
         with:
           enabled-static-website: 'true'
           folder: 'dist'
