@@ -20,6 +20,12 @@ jobs:
       - name: 'Install Node' 
         uses: actions/setup-node@v1
       
+      - name: 'Build Env File'
+        uses: oppielabs/create-envfile@v1
+        with:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+          FILE_NAME: .env
+
       - name: 'Install packages'
         run: npm install
       
