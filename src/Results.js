@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import Pet from "./Pet";
-import {petResultText} from './Feature';
-import ThemeContext from "./ThemeContext";
+import {petResultText} from './feature/Feature';
+import FeatureContext from "./feature/FeatureContext";
 
 const Results = ({ pets }) => {
   const defaultText = "No Pets Found";
-  const [, , features, ] = useContext(ThemeContext);
+  const [features, ] = useContext(FeatureContext);
   const [petText, setPetText] = useState(defaultText);
 
   

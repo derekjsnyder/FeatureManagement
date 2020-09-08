@@ -3,10 +3,12 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
 import ThemeContext from "./ThemeContext";
-import { getFeatures } from "./Feature";
+import FeatureContext from "./feature/FeatureContext";
+import { getFeatures } from "./feature/Feature";
 
 const SearchParams = () => {
-  const [theme, setTheme, , setFeatures] = useContext(ThemeContext);
+  const [theme, setTheme] = useContext(ThemeContext);
+  const [, setFeatures] = useContext(FeatureContext);
   const [location, updateLocation] = useState("Seattle, WA");
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);

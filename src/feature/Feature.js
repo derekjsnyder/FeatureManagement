@@ -51,7 +51,7 @@ function createFeatureDecisions(features){
   }
 
   function alternativePetText() {
-    return "No schnauzers here";
+    return "Sorry no pets";
   }
 
 function createFeatureAwareFactoryBasedOn(featureDecisions) {
