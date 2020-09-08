@@ -42,7 +42,9 @@ const SearchParams = () => {
   }, []);
 
   return (
-    <div className="search-params">
+    <div
+      className={theme == "healthwise" ? "search-params-hw" : "search-params"}
+    >
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -67,15 +69,13 @@ const SearchParams = () => {
             onChange={e => setTheme(e.target.value)}
             onBlur={e => setTheme(e.target.value)}
           >
-            <option value="peru">Peru</option>
-            <option value="darkblue">Dark Blue</option>
-            <option value="chartreuse">Chartreuse</option>
-            <option value="mediumorchid">Medium Orchid</option>
+            <option value="normal">Normal</option>
+            <option value="healthwise">Healthwise</option>
           </select>
         </label>
-        <button style={{ backgroundColor: theme }}>Submit</button>
+        <button>Submit</button>
       </form>
-      <Results pets={pets} />
+      <Results pets={pets} theme={theme} />
     </div>
   );
 };

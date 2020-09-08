@@ -5,7 +5,7 @@ import {toggleLocal} from './feature/FeatureApi';
 import {FeatureContext} from "./feature/FeatureContext";
 
 
-const Results = ({ pets }) => {
+const Results = ({ pets, theme }) => {
   const defaultText = "No Pets Found";
   const [features, ] = useContext(FeatureContext);
   const [petText, setPetText] = useState(defaultText);
@@ -25,7 +25,7 @@ const Results = ({ pets }) => {
   };
   
   return (
-    <div className="search">
+    <div className={theme == "healthwise" ? "search-hw" : "search"}>
       {!pets.length ? (
         <h1>{petText}</h1>
       ) : (
@@ -41,6 +41,7 @@ const Results = ({ pets }) => {
                 pet.contact.address.state
               }`}
               id={pet.id}
+              theme={theme}
             />
           );
         })

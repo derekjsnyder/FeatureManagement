@@ -1,4 +1,5 @@
 import React from "react";
+import ThemeContext from "./ThemeContext";
 
 class Carousel extends React.Component {
   state = {
@@ -22,22 +23,26 @@ class Carousel extends React.Component {
   render() {
     const { photos, active } = this.state;
     return (
-      <div className="carousel">
-        <img src={photos[active]} alt="animal" />
-        <div className="carousel-smaller">
-          {photos.map((photo, index) => (
-            // eslint-disable-next-line
-            <img
-              key={photo}
-              onClick={this.handleIndexClick}
-              data-index={index}
-              src={photo}
-              className={index === active ? "active" : ""}
-              alt="animal thumbnail"
-            />
-          ))}
-        </div>
-      </div>
+      <ThemeContext.Consumer>
+        {([theme]) => (
+          <div className={theme == "healthwise" ? "carousel-hw" : "carousel"}>
+            <img src={photos[active]} alt="animal" />
+            <div className="carousel-smaller">
+              {photos.map((photo, index) => (
+                // eslint-disable-next-line
+                <img
+                  key={photo}
+                  onClick={this.handleIndexClick}
+                  data-index={index}
+                  src={photo}
+                  className={index === active ? "active" : ""}
+                  alt="animal thumbnail"
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </ThemeContext.Consumer>
     );
   }
 }
