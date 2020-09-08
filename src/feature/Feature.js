@@ -46,13 +46,13 @@ function createFeatureDecisions(features){
 }
 
 
-  function darkTheme() {
-      return "dark";
-  }
+function darkTheme() {
+    return "dark";
+}
 
-  function alternativePetText() {
+function alternativePetText() {
     return "Sorry no pets";
-  }
+}
 
 function createFeatureAwareFactoryBasedOn(featureDecisions) {
     return {
@@ -85,9 +85,7 @@ function createPetText(petProps) {
 
 
 export function loadTheme(features) {
-
     let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(features));
-
     let themeCreator = factory.themeBuilder();
 
     return themeCreator;
@@ -95,7 +93,6 @@ export function loadTheme(features) {
 
 export function petResultText(features) {
     let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(features));
-
     let petTextCreator = factory.petTextBuilder();
 
     return petTextCreator;

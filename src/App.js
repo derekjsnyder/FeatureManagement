@@ -4,13 +4,13 @@ import { Router, Link } from "@reach/router";
 import Details from "./Details";
 import SearchParams from "./SearchParams";
 import ThemeContext from "./ThemeContext";
-import FeatureContext from "./feature/FeatureContext";
+import {FeatureContextProvider} from "./feature/FeatureContext";
 
 const App = () => {
   const theme = useState("darkblue");
   return (
     <ThemeContext.Provider value={theme}>
-      <FeatureContext.Provider value={[]}>
+      <FeatureContextProvider>
         <div>
           <header>
             <Link to="/">Adopt Me!</Link>
@@ -20,7 +20,7 @@ const App = () => {
             <Details path="/details/:id" />
           </Router>
         </div>
-      </FeatureContext.Provider>
+      </FeatureContextProvider>
     </ThemeContext.Provider>
   );
 };

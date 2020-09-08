@@ -1,23 +1,28 @@
 import React, {useContext, useEffect, useState} from "react";
 import Pet from "./Pet";
 import {petResultText} from './feature/Feature';
-import FeatureContext from "./feature/FeatureContext";
+import {toggleLocal} from './feature/FeatureApi';
+import {FeatureContext} from "./feature/FeatureContext";
+
 
 const Results = ({ pets }) => {
   const defaultText = "No Pets Found";
   const [features, ] = useContext(FeatureContext);
   const [petText, setPetText] = useState(defaultText);
-
+  const [isEnabled, setIsEnabled] = useState(false);
   
   useEffect(() => {
-    console.log("Feature changed");
-    console.log(features);
-    if (features) {
+    if (features && features.hasOwnProperty('isEnabled')) {
+      setIsEnabled(features.isEnabled("hwfeature:pettext"));
       setPetText(petResultText(features));
     }
-
+ 
   }, [features]);
 
+  const handleChange = () => {
+    toggleLocal("hwfeature:pettext");
+    setIsEnabled(!isEnabled);
+  };
   
   return (
     <div className="search">
@@ -40,6 +45,7 @@ const Results = ({ pets }) => {
           );
         })
       )}
+      <input type="checkbox" checked={isEnabled} onChange={handleChange} />
     </div>
   );
 };

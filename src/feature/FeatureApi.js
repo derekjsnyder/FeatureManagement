@@ -58,3 +58,11 @@ export function addFeedback(feedback, featureType) {
 
   return axios.post(url, data, {headers: authHeaders()}); 
 }
+
+export function toggleLocal(key) {
+  if (localStorage.getItem(key)) {
+    localStorage.removeItem(key);
+  } else {
+    localStorage.setItem(key, "true");
+  }
+}

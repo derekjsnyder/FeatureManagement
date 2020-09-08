@@ -3,7 +3,7 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
 import ThemeContext from "./ThemeContext";
-import FeatureContext from "./feature/FeatureContext";
+import {FeatureContext} from "./feature/FeatureContext";
 import { getFeatures } from "./feature/Feature";
 
 const SearchParams = () => {

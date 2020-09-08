@@ -1,5 +1,16 @@
-import { createContext } from "react";
+import React, {  useState } from "react";
 
-const FeatureContext = createContext([[], () => {}]);
+const FeatureContext = React.createContext([{}, () => {}]);
 
-export default FeatureContext;
+const FeatureContextProvider = (props) => {
+    const [feature, setFeature] = useState({});
+
+    return (
+        <FeatureContext.Provider value={[feature, setFeature]}>
+            {props.children}
+        </FeatureContext.Provider>
+    );
+};
+
+
+export {FeatureContext, FeatureContextProvider};
