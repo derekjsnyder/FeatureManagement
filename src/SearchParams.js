@@ -3,10 +3,10 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
 import ThemeContext from "./ThemeContext";
-import { getAllFeatureFlags } from "./FeatureApi";
+import { getFeatures } from "./Feature";
 
 const SearchParams = () => {
-  const [theme, setTheme] = useContext(ThemeContext);
+  const [theme, setTheme, , setFeatures] = useContext(ThemeContext);
   const [location, updateLocation] = useState("Seattle, WA");
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
@@ -36,7 +36,7 @@ const SearchParams = () => {
   }, [animal]);
 
   useEffect(() => {
-    getAllFeatureFlags().then(d=>console.log(d));
+    getFeatures().then(setFeatures);
   }, []);
 
   return (

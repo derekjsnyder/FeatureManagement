@@ -1,11 +1,28 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Pet from "./Pet";
+import {petResultText} from './Feature';
+import ThemeContext from "./ThemeContext";
 
 const Results = ({ pets }) => {
+  const defaultText = "No Pets Found";
+  const [, , features, ] = useContext(ThemeContext);
+  const [petText, setPetText] = useState(defaultText);
+
+  
+  useEffect(() => {
+    console.log("Feature changed");
+    console.log(features);
+    if (features) {
+      setPetText(petResultText(features));
+    }
+
+  }, [features]);
+
+  
   return (
     <div className="search">
       {!pets.length ? (
-        <h1>No Pets Found</h1>
+        <h1>{petText}</h1>
       ) : (
         pets.map(pet => {
           return (
