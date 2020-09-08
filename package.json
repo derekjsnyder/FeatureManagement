@@ -6,6 +6,7 @@
   "dependencies": {
     "@frontendmasters/pet": "^1.0.3",
     "@reach/router": "^1.2.1",
+    "axios": "^0.20.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
@@ -27,6 +28,7 @@
   },
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
+    "prod": "parcel build src/index.html",
     "dev": "parcel src/index.html",
     "dev:mock": "cross-env PET_MOCK=mock parcel src/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",

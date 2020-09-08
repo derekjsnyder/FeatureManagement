@@ -3,6 +3,7 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
 import ThemeContext from "./ThemeContext";
+import { getAllFeatureFlags } from "./FeatureApi";
 
 const SearchParams = () => {
   const [theme, setTheme] = useContext(ThemeContext);
@@ -33,6 +34,10 @@ const SearchParams = () => {
       updateBreeds(breedStrings);
     }, console.error);
   }, [animal]);
+
+  useEffect(() => {
+    getAllFeatureFlags().then(d=>console.log(d));
+  }, []);
 
   return (
     <div
