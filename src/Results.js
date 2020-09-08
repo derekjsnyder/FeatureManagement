@@ -1,9 +1,9 @@
 import React from "react";
 import Pet from "./Pet";
 
-const Results = ({ pets }) => {
+const Results = ({ pets, theme }) => {
   return (
-    <div className="search">
+    <div className={theme == "healthwise" ? "search-hw" : "search"}>
       {!pets.length ? (
         <h1>No Pets Found</h1>
       ) : (
@@ -19,6 +19,7 @@ const Results = ({ pets }) => {
                 pet.contact.address.state
               }`}
               id={pet.id}
+              theme={theme}
             />
           );
         })

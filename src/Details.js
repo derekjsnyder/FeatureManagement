@@ -45,33 +45,35 @@ class Details extends React.Component {
     } = this.state;
 
     return (
-      <div className="details">
-        <Carousel media={media} />
-        <div>
-          <h1>{name}</h1>
-          <h2>{`${animal} — ${breed} — ${location}`}</h2>
-          <ThemeContext.Consumer>
-            {([theme]) => (
+      <ThemeContext.Consumer>
+        {([theme]) => (
+          <div className={theme == "healthwise" ? "details-hw" : "details"}>
+            <Carousel media={media} theme={theme} />
+            <div>
+              <h1>{name}</h1>
+              <h2>{`${animal} — ${breed} — ${location}`}</h2>{" "}
               <button
                 onClick={this.toggleModal}
                 style={{ backgroundColor: theme }}
               >
                 Adopt {name}
               </button>
-            )}
-          </ThemeContext.Consumer>
-          <p>{description}</p>
-          {showModal ? (
-            <Modal>
-              <h1>Would you like to adopt {name}?</h1>
-              <div className="buttons">
-                <button onClick={this.adopt}>Yes</button>
-                <button onClick={this.toggleModal}>No, I am a monster</button>
-              </div>
-            </Modal>
-          ) : null}
-        </div>
-      </div>
+              <p>{description}</p>
+              {showModal ? (
+                <Modal>
+                  <h1>Would you like to adopt {name}?</h1>
+                  <div className="buttons">
+                    <button onClick={this.adopt}>Yes</button>
+                    <button onClick={this.toggleModal}>
+                      No, I am a monster
+                    </button>
+                  </div>
+                </Modal>
+              ) : null}
+            </div>
+          </div>
+        )}
+      </ThemeContext.Consumer>
     );
   }
 }
