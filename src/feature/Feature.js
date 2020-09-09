@@ -1,6 +1,6 @@
 import {getAllFeatureFlags } from './FeatureApi';
-import { petTextBuilder, petTextKey } from './PetTextFeature';
-import { themeKey, themeBuilder } from './ThemeFeature';
+
+//import { themeKey, themeBuilder } from './ThemeFeature';
 
 const localFlagPrefix = "hwfeature:";
 
@@ -27,10 +27,13 @@ export async function getFeatures() {
         }
     }
 
-    let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(enabledFeatures));
+    //let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(enabledFeatures));
         
+    return enabledFeatures;
+
+    /*
     return {
-        enabledFeatures,
+        enabledFeatures ,
         petResultText: function() {
             return factory.petTextBuilder();
         }, 
@@ -38,8 +41,10 @@ export async function getFeatures() {
             return factory.themeBuilder();
         },
     };
+    */
 }
 
+/*
 function createFeatureDecisions(features){
     return {
         useDarkTheme(){
@@ -63,5 +68,5 @@ function createFeatureAwareFactoryBasedOn(featureDecisions) {
         } ,
     };
 }
-
+*/
 

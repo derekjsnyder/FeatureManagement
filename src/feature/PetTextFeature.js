@@ -1,22 +1,28 @@
-import {identityFn} from '../Helper';
-
-function createPetText(petProps) {
-    const defaultText = "No Pets Found";
-    return petProps(defaultText);
-}
-
-function alternativePetText() {
+function enabledFeaturePetText() {
     return "Sorry no pets";
 }
 
-export function petTextBuilder(featureDecisions) {
-    if ( featureDecisions.useAlternatePetText()  ) {
-        return createPetText(alternativePetText);
+function defaultPetText() {
+    return "No Pets Found";
+}
+
+export function petTextBuilder(features) {
+    if ( isPetTextEnabled(features)) {
+        return createPetTextComponent(enabledFeaturePetText);
     }
 
-    return createPetText(identityFn);
+    return createPetTextComponent(defaultPetText);
+}
+
+function createPetTextComponent(petProps) {
+    return petProps();
 }
 
 export function petTextKey() {
     return "hwfeature:pettext";
 }
+
+export function isPetTextEnabled(features) {
+    return features.indexOf(petTextKey()) >= 0;
+}
+

@@ -13,7 +13,7 @@ const useFeatureData = () => {
 }
 
 const FeatureContextProvider = (props) => {
-    const [feature, setFeature] = useState(null);
+    const [feature, setFeature] = useState([]);
 
     useEffect(()=>{
         getFeatures().then(setFeature);

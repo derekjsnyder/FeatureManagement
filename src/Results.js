@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Pet from "./Pet";
 import {toggleLocal} from './feature/FeatureApi';
 import {useFeatureData} from "./feature/FeatureContext";
+import { petTextBuilder, petTextKey, isPetTextEnabled } from './feature/PetTextFeature';
 
 const Results = ({ pets, theme }) => {
   const defaultText = "No Pets Found";
@@ -11,15 +12,15 @@ const Results = ({ pets, theme }) => {
   
   useEffect(() => {
     if (features) {
-      let isEnabled =  features.enabledFeatures.indexOf("hwfeature:pettext") >= 0;
+      let isEnabled =  isPetTextEnabled(features);
       setIsEnabled(isEnabled);
-      setPetText(features.petResultText());
+      setPetText(petTextBuilder(features));
     }
 
   }, [features]);
 
   const handleChange = () => {
-    toggleLocal("hwfeature:pettext");
+    toggleLocal(petTextKey());
     refreshFeatures();
   };
   
