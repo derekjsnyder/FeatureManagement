@@ -6,6 +6,7 @@ const localFlagPrefix = "hwfeature:";
 
 const isActiveFeature = feature => feature.IsActive === true;
 
+// Returns collection of all feature flags currently enabled
 export async function getFeatures() {
     // Get all local storage flags
     let enabledFeatures = [];
@@ -26,47 +27,6 @@ export async function getFeatures() {
             enabledFeatures.push(val.Feature);
         }
     }
-
-    //let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(enabledFeatures));
         
     return enabledFeatures;
-
-    /*
-    return {
-        enabledFeatures ,
-        petResultText: function() {
-            return factory.petTextBuilder();
-        }, 
-        loadTheme: function() {
-            return factory.themeBuilder();
-        },
-    };
-    */
 }
-
-/*
-function createFeatureDecisions(features){
-    return {
-        useDarkTheme(){
-          return features.indexOf(themeKey()) >= 0;
-      }, useAlternatePetText() {
-        return features.indexOf(petTextKey()) >= 0;
-      }
-      // ... additional decision functions also live here ...
-    };
-}
-
-
-
-function createFeatureAwareFactoryBasedOn(featureDecisions) {
-    return {
-        themeBuilder: function() {
-            return themeBuilder(featureDecisions);
-        },
-        petTextBuilder: function() {
-            return petTextBuilder(featureDecisions);
-        } ,
-    };
-}
-*/
-
