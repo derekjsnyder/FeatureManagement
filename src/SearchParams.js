@@ -3,12 +3,9 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
 import ThemeContext from "./ThemeContext";
-import {FeatureContext} from "./feature/FeatureContext";
-import { getFeatures } from "./feature/Feature";
 
 const SearchParams = () => {
   const [theme, setTheme] = useContext(ThemeContext);
-  const [, setFeatures] = useContext(FeatureContext);
   const [location, updateLocation] = useState("Seattle, WA");
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
@@ -36,10 +33,6 @@ const SearchParams = () => {
       updateBreeds(breedStrings);
     }, console.error);
   }, [animal]);
-
-  useEffect(() => {
-    getFeatures().then(setFeatures);
-  }, []);
 
   return (
     <div

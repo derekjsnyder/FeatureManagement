@@ -1,5 +1,7 @@
 import {getAllFeatureFlags } from './FeatureApi';
-const identityFn = x => x;
+import { petTextBuilder, petTextKey } from './PetTextFeature';
+import { themeKey, themeBuilder } from './ThemeFeature';
+
 const localFlagPrefix = "hwfeature:";
 
 const isActiveFeature = feature => feature.IsActive === true;
@@ -24,76 +26,42 @@ export async function getFeatures() {
             enabledFeatures.push(val.Feature);
         }
     }
+
+    let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(enabledFeatures));
         
-
-
     return {
-        isEnabled: (feature) => enabledFeatures.indexOf(feature) >= 0,
-        enabledFeatures: enabledFeatures,
+        enabledFeatures,
+        petResultText: function() {
+            return factory.petTextBuilder();
+        }, 
+        loadTheme: function() {
+            return factory.themeBuilder();
+        },
     };
-
 }
 
 function createFeatureDecisions(features){
     return {
         useDarkTheme(){
-          return features.isEnabled("DarkTheme");
+          return features.indexOf(themeKey()) >= 0;
       }, useAlternatePetText() {
-        return features.isEnabled("hwfeature:pettext");
+        return features.indexOf(petTextKey()) >= 0;
       }
       // ... additional decision functions also live here ...
     };
 }
 
 
-function darkTheme() {
-    return "dark";
-}
-
-function alternativePetText() {
-    return "Sorry no pets";
-}
 
 function createFeatureAwareFactoryBasedOn(featureDecisions) {
     return {
-        themeBuilder(){
-            if ( featureDecisions.useDarkTheme()  ) {
-                return createTheme(darkTheme);
-            }
-
-            return createTheme(identityFn);
+        themeBuilder: function() {
+            return themeBuilder(featureDecisions);
         },
-        petTextBuilder() {
-            if ( featureDecisions.useAlternatePetText()  ) {
-                return createPetText(alternativePetText);
-            }
-
-            return createPetText(identityFn);
-        }
+        petTextBuilder: function() {
+            return petTextBuilder(featureDecisions);
+        } ,
     };
 }
 
-function createTheme(themeProps) {
-        const defaultTheme = "light";
-        return themeProps(defaultTheme);
-}
 
-function createPetText(petProps) {
-    const defaultText = "No Pets Found";
-    return petProps(defaultText);
-}
-
-
-export function loadTheme(features) {
-    let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(features));
-    let themeCreator = factory.themeBuilder();
-
-    return themeCreator;
-}
-
-export function petResultText(features) {
-    let factory = createFeatureAwareFactoryBasedOn(createFeatureDecisions(features));
-    let petTextCreator = factory.petTextBuilder();
-
-    return petTextCreator;
-}

@@ -1,29 +1,31 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Pet from "./Pet";
-import {petResultText} from './feature/Feature';
 import {toggleLocal} from './feature/FeatureApi';
-import {FeatureContext} from "./feature/FeatureContext";
-
+import {useFeatureData} from "./feature/FeatureContext";
 
 const Results = ({ pets, theme }) => {
   const defaultText = "No Pets Found";
-  const [features, ] = useContext(FeatureContext);
+  const [features, refreshFeatures ] = useFeatureData();
   const [petText, setPetText] = useState(defaultText);
   const [isEnabled, setIsEnabled] = useState(false);
   
   useEffect(() => {
-    if (features && features.hasOwnProperty('isEnabled')) {
-      setIsEnabled(features.isEnabled("hwfeature:pettext"));
-      setPetText(petResultText(features));
+    if (features) {
+      let isEnabled =  features.enabledFeatures.indexOf("hwfeature:pettext") >= 0;
+      setIsEnabled(isEnabled);
+      setPetText(features.petResultText());
     }
- 
+
   }, [features]);
 
   const handleChange = () => {
     toggleLocal("hwfeature:pettext");
-    setIsEnabled(!isEnabled);
+    refreshFeatures();
   };
   
+
+ 
+
   return (
     <div className={theme == "healthwise" ? "search-hw" : "search"}>
       {!pets.length ? (
