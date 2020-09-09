@@ -5,16 +5,13 @@ import {useFeatureData} from "./feature/FeatureContext";
 import { petTextBuilder, petTextKey, isPetTextEnabled } from './feature/PetTextFeature';
 
 const Results = ({ pets, theme }) => {
-  const defaultText = "No Pets Found";
   const [features, refreshFeatures ] = useFeatureData();
-  const [petText, setPetText] = useState(defaultText);
   const [isEnabled, setIsEnabled] = useState(false);
   
   useEffect(() => {
     if (features) {
       let isEnabled =  isPetTextEnabled(features);
       setIsEnabled(isEnabled);
-      setPetText(petTextBuilder(features));
     }
 
   }, [features]);
@@ -30,7 +27,7 @@ const Results = ({ pets, theme }) => {
   return (
     <div className={theme == "healthwise" ? "search-hw" : "search"}>
       {!pets.length ? (
-        <h1>{petText}</h1>
+        petTextBuilder(features)
       ) : (
         pets.map(pet => {
           return (

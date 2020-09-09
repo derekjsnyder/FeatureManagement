@@ -1,17 +1,14 @@
-function enabledFeaturePetText() {
-    return "Sorry no pets";
-}
+import React from 'react';
+const enabledFeaturePetText = (props) => <h3 {...props}>This Pet Response Is Set From A Flag</h3>;
 
-function defaultPetText() {
-    return "No Pets Found";
-}
+const defaultPetText = (props) => <h1 {...props}>No Pets Found</h1>;
 
-export function petTextBuilder(features) {
+export function petTextBuilder(features, props) {
     if ( isPetTextEnabled(features)) {
-        return createPetTextComponent(enabledFeaturePetText);
+        return createPetTextComponent(enabledFeaturePetText, props);
     }
 
-    return createPetTextComponent(defaultPetText);
+    return createPetTextComponent(defaultPetText, props);
 }
 
 function createPetTextComponent(petProps) {
@@ -25,4 +22,3 @@ export function petTextKey() {
 export function isPetTextEnabled(features) {
     return features.indexOf(petTextKey()) >= 0;
 }
-
