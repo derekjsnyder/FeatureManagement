@@ -1,11 +1,33 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Pet from "./Pet";
+import {toggleLocal} from './feature/FeatureApi';
+import {useFeatureData} from "./feature/FeatureContext";
+import { petTextBuilder, petTextKey, isPetTextEnabled } from './feature/PetTextFeature';
 
 const Results = ({ pets, theme }) => {
+  const [features, refreshFeatures ] = useFeatureData();
+  const [isEnabled, setIsEnabled] = useState(false);
+  
+  useEffect(() => {
+    if (features) {
+      let isEnabled =  isPetTextEnabled(features);
+      setIsEnabled(isEnabled);
+    }
+
+  }, [features]);
+
+  const handleChange = () => {
+    toggleLocal(petTextKey());
+    refreshFeatures();
+  };
+  
+
+ 
+
   return (
     <div className={theme == "healthwise" ? "search-hw" : "search"}>
       {!pets.length ? (
-        <h1>No Pets Found</h1>
+        petTextBuilder(features)
       ) : (
         pets.map(pet => {
           return (
@@ -24,6 +46,7 @@ const Results = ({ pets, theme }) => {
           );
         })
       )}
+      <input type="checkbox" checked={isEnabled} onChange={handleChange} />
     </div>
   );
 };
