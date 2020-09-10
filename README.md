@@ -1,4 +1,4 @@
-https://github.com/derekjsnyder/FeatureManagement/workflows/Deploy%20Feature%20Management%20Application/badge.svg
+![Deploy Feature Management Application](https://github.com/derekjsnyder/FeatureManagement/workflows/Deploy%20Feature%20Management%20Application/badge.svg)
 
 ## For details about original project [README-orig.md](README-orig.md)
 
