@@ -1,24 +1,27 @@
-import {identityFn} from '../Helper';
+
+const nilFunction = ()=>{};
 
 export function themeKey() {
-    return "DarkTheme";
+    return "dark";
+}
+
+export function isThemeEnabled(features) {
+    return features.indexOf(themeKey()) >= 0;
 }
 
 function createTheme(themeProps) {
-    const defaultTheme = "light";
-    return themeProps(defaultTheme);
+    return themeProps();
 }
 
-function darkTheme() {
+function darkThemeClassName() {
     return "dark";
 }
 
 
-export function themeBuilder(featureDecisions){
-    if ( featureDecisions.useDarkTheme()  ) {
-        return createTheme(darkTheme);
+export function themeBuilder(features){
+    if ( isThemeEnabled(features)) {
+        return createTheme(darkThemeClassName);
     }
 
-    return createTheme(identityFn);
+    return createTheme(nilFunction);
 }
-
