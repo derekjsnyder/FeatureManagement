@@ -25,6 +25,7 @@ const Results = ({ pets, theme }) => {
  
 
   return (
+    <div>
     <div className={theme == "healthwise" ? "search-hw" : "search"}>
       {!pets.length ? (
         petTextBuilder(features)
@@ -46,7 +47,12 @@ const Results = ({ pets, theme }) => {
           );
         })
       )}
-      <input type="checkbox" checked={isEnabled} onChange={handleChange} />
+    </div>
+    <div>
+      <input id="toggleResultText" type="checkbox" checked={isEnabled} onChange={handleChange} />   
+      <label htmlFor="toggleResultText">Use New Result Text?</label>
+    </div>
+    
     </div>
   );
 };
