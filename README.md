@@ -1,3 +1,5 @@
+https://github.com/derekjsnyder/FeatureManagement/workflows/Deploy Feature Management Application/badge.svg
+
 ## For details about original project [README-orig.md](README-orig.md)
 
 ## Feature Context
