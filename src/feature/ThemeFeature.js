@@ -1,6 +1,3 @@
-
-const nilFunction = ()=>{};
-
 export function themeKey() {
     return "dark";
 }
@@ -17,11 +14,15 @@ function darkThemeClassName() {
     return "dark";
 }
 
+function defaultClassName() {
+    return "";
+}
+
 
 export function themeBuilder(features){
     if ( isThemeEnabled(features)) {
         return createTheme(darkThemeClassName);
     }
 
-    return createTheme(nilFunction);
+    return createTheme(defaultClassName);
 }
