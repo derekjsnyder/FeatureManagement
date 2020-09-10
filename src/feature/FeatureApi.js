@@ -19,14 +19,14 @@ export function getAllFeatureFlags() {
 }
 
 export function getFeatureFlagByName(flagName) {
-    var url = baseAzureTableApi("featureflag", `(PartitionKey='darktheme',RowKey='${flagName}')`);
+    var url = baseAzureTableApi("featureflag", `(PartitionKey='features',RowKey='${flagName}')`);
 
     return axios.get(url, {headers: authHeaders()});
 }
 
 
 export function updateFeatureFlag(flagName, newValue) {
-    var url = baseAzureTableApi("featureflag", `(PartitionKey='darktheme',RowKey='${flagName}')`);
+    var url = baseAzureTableApi("featureflag", `(PartitionKey='features',RowKey='${flagName}')`);
 
     axios({
         method: 'merge',
