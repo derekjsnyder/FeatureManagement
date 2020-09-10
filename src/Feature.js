@@ -10,6 +10,7 @@ const Feature = props => {
     props.updateFeatureValue(props.feature.RowKey, value);
   }
 
+  var isSelected = props.feature.isActive;
   return (
     <li>
       <p>{props.feature.Feature}</p>
@@ -18,7 +19,7 @@ const Feature = props => {
           <input
             type="radio"
             id="active"
-            defaultChecked={props.feature.IsActive}
+            checked={isSelected}
             name={props.feature.Feature}
             onChange={event => handleRadioChange(event)}
             value={true}
@@ -29,7 +30,7 @@ const Feature = props => {
           <input
             type="radio"
             id="inactive"
-            defaultChecked={!props.feature.IsActive}
+            checked={!isSelected}
             name={props.feature.Feature}
             onChange={event => handleRadioChange(event)}
             value={false}
