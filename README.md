@@ -35,6 +35,13 @@ updateFeatureFlag('dark', true); //Set the dark feature to true.
 ```
 
 ## Feature Flipper
+Feature flippers designed in way to minimize spaghetti logic in applications for toggling a feature on and off.  The logic is pulled out of the main flow of the application into factory methods which determine the correct value to return.  The factory method can return an object (perhaps components to build up `props`), strings (for example to be used in CSS styles), or even React components.  In fact the factory method can return anything that can be represented in code. For purposes of demonstration, each feature is split into its own file.
+
+The feature file has the following methods:
+  - Method returning the key name for the feature.  This corresponds to the key of the feature in the database, or the feature in local storage.
+  - Predicate for determining if key is present in feature collection.  This will always take a collection of values and return a boolean.
+  - Factory method that returns either a default value (feature not toggled) or the alternate value based on if the feature is toggled.
+
   - Abstract if statements
   - Functions to handle feature types
     - Components / strings /etc...
@@ -62,3 +69,4 @@ updateFeatureFlag('dark', true); //Set the dark feature to true.
 ### Considered Out of Scope
 - User Management
 - Back-End Feature Flippers.  While conceptually the same, wanted to focus effort on a single code base.
+- Complex feature flippers with interplay between multiple different flippers.  Ideally we craft new features in a way to minimize or eliminate this.
