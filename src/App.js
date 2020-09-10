@@ -5,21 +5,24 @@ import Details from "./Details";
 import SearchParams from "./SearchParams";
 import Admin from "./Admin";
 import ThemeContext from "./ThemeContext";
+import {FeatureContextProvider} from "./feature/FeatureContext";
 
 const App = () => {
   const theme = useState("darkblue");
   return (
     <ThemeContext.Provider value={theme}>
-      <div>
-        <header>
-          <Link to="/">Adopt Me!</Link>
-        </header>
-        <Router>
-          <SearchParams path="/" />
-          <Details path="/details/:id" />
-          <Admin path="/admin" />
-        </Router>
-      </div>
+      <FeatureContextProvider>
+        <div>
+          <header>
+            <Link to="/">Adopt Me!</Link>
+          </header>
+          <Router>
+            <SearchParams path="/" />
+            <Details path="/details/:id" />
+            <Admin path="/admin" />
+          </Router>
+        </div>
+      </FeatureContextProvider>
     </ThemeContext.Provider>
   );
 };
