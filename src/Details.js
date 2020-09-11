@@ -47,7 +47,7 @@ class Details extends React.Component {
     return (
       <ThemeContext.Consumer>
         {([theme]) => (
-          <div className={theme == "healthwise" ? "details-hw" : "details"}>
+          <div className={theme[0] == "dark" ? "details-hw" : "details"}>
             <Carousel media={media} theme={theme} />
             <div>
               <h1>{name}</h1>

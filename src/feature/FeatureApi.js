@@ -35,7 +35,7 @@ export function updateFeatureFlag(flagName, newValue) {
     `(PartitionKey='features',RowKey='${flagName}')`
   );
 
-  axios({
+  return axios({
     method: "merge",
     url: url,
     data: {

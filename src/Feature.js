@@ -1,16 +1,7 @@
 import React from "react";
 
 const Feature = props => {
-  function handleUpdate() {
-    props.updateFeature(props.feature.RowKey);
-  }
-
-  function handleRadioChange(event) {
-    var value = event.target.value;
-    props.updateFeatureValue(props.feature.RowKey, value);
-  }
-
-  var isSelected = props.feature.isActive;
+  var isSelected = props.feature.IsActive == "true" ? true : false;
   return (
     <li>
       <p>{props.feature.Feature}</p>
@@ -21,7 +12,9 @@ const Feature = props => {
             id="active"
             checked={isSelected}
             name={props.feature.Feature}
-            onChange={event => handleRadioChange(event)}
+            onChange={event =>
+              props.updateFeatureValue(props.feature.RowKey, event.target.value)
+            }
             value={true}
           />
           <label htmlFor="active">Active</label>
@@ -32,13 +25,17 @@ const Feature = props => {
             id="inactive"
             checked={!isSelected}
             name={props.feature.Feature}
-            onChange={event => handleRadioChange(event)}
+            onChange={event =>
+              props.updateFeatureValue(props.feature.RowKey, event.target.value)
+            }
             value={false}
           />
           <label htmlFor="inactive">Inactive</label>
         </li>
         <li>
-          <button onClick={handleUpdate}>Update</button>
+          <button onClick={props.updateFeature(props.feature.RowKey)}>
+            Update
+          </button>
         </li>
       </ul>
     </li>
