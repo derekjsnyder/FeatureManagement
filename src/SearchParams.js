@@ -3,6 +3,7 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
 import ThemeContext from "./ThemeContext";
+import ResultToggle from './ResultToggle';
 
 const SearchParams = () => {
   const [theme, setTheme] = useContext(ThemeContext);
@@ -35,6 +36,7 @@ const SearchParams = () => {
   }, [animal]);
 
   return (
+    <>
     <div
       className={theme == "healthwise" ? "search-params-hw" : "search-params"}
     >
@@ -70,6 +72,8 @@ const SearchParams = () => {
       </form>
       <Results pets={pets} theme={theme} />
     </div>
+    <ResultToggle />
+    </>
   );
 };
 
