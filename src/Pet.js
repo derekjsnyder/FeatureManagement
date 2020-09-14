@@ -10,14 +10,11 @@ const Pet = props => {
   }
 
   return (
-    <Link
-      to={`/details/${id}`}
-      className={theme == "healthwise" ? "pet-hw" : "pet"}
-    >
+    <Link to={`/details/${id}`} className={theme == "dark" ? "pet-hw" : "pet"}>
       <div className="image-container">
         <img src={hero} alt={name} />
       </div>
-      <div className={theme == "healthwise" ? "info-hw" : "info"}>
+      <div className={theme[0] == "dark" ? "info-hw" : "info"}>
         <h1>{name}</h1>
         <h2>{`${animal} — ${breed} — ${location}`}</h2>
       </div>

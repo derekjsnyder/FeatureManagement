@@ -25,7 +25,7 @@ class Carousel extends React.Component {
     return (
       <ThemeContext.Consumer>
         {([theme]) => (
-          <div className={theme == "healthwise" ? "carousel-hw" : "carousel"}>
+          <div className={theme[0] == "dark" ? "carousel-hw" : "carousel"}>
             <img src={photos[active]} alt="animal" />
             <div className="carousel-smaller">
               {photos.map((photo, index) => (
