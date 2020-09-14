@@ -7,10 +7,13 @@ import {
   petTextKey,
   isPetTextEnabled
 } from "./feature/PetTextFeature";
+import Modal from "./Modal";
+import Feedback from "./Feedback";
 
 const Results = ({ pets, theme }) => {
   const [features, refreshFeatures] = useFeatureData();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (features) {
@@ -19,10 +22,18 @@ const Results = ({ pets, theme }) => {
     }
   }, [features]);
 
-  const handleChange = () => {
+  const handleChange = e => {
     toggleLocal(petTextKey());
     refreshFeatures();
+
+    if (e.target.checked === false) {
+      setShowModal(true);
+    }
   };
+
+  function closeModal() {
+    setShowModal(false);
+  }
 
   return (
     <div className={theme[0] == "dark" ? "search-hw" : "search"}>
@@ -44,7 +55,21 @@ const Results = ({ pets, theme }) => {
               />
             );
           })}
-      <input type="checkbox" checked={isEnabled} onChange={handleChange} />
+      {showModal ? (
+        <Modal>
+          <Feedback featureId={petTextKey()} closeModal={closeModal} />
+          <div className="buttons">
+            <button className="close-modal-button" onClick={closeModal}>
+              close
+            </button>
+          </div>
+        </Modal>
+      ) : null}
+      <input
+        type="checkbox"
+        checked={isEnabled}
+        onChange={e => handleChange(e)}
+      />
     </div>
   );
 };
