@@ -6,7 +6,7 @@ import ThemeContext from "./ThemeContext";
 import ResultToggle from './ResultToggle';
 
 const SearchParams = () => {
-  const [theme, setTheme] = useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
   const [location, updateLocation] = useState("Seattle, WA");
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
@@ -21,6 +21,7 @@ const SearchParams = () => {
     });
 
     console.log("animals", animals);
+    console.log(theme);
 
     setPets(animals || []);
   }
@@ -37,9 +38,7 @@ const SearchParams = () => {
 
   return (
     <>
-    <div
-      className={theme == "healthwise" ? "search-params-hw" : "search-params"}
-    >
+    <div className={theme[0] == "dark" ? "search-params-hw" : "search-params"}>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -57,17 +56,6 @@ const SearchParams = () => {
         </label>
         <AnimalDropdown />
         <BreedDropdown />
-        <label htmlFor="location">
-          Theme
-          <select
-            value={theme}
-            onChange={e => setTheme(e.target.value)}
-            onBlur={e => setTheme(e.target.value)}
-          >
-            <option value="normal">Normal</option>
-            <option value="healthwise">Healthwise</option>
-          </select>
-        </label>
         <button>Submit</button>
       </form>
       <Results pets={pets} theme={theme} />
