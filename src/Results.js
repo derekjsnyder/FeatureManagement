@@ -3,13 +3,13 @@ import Pet from "./Pet";
 
 import {useFeatureData} from "./feature/FeatureContext";
 import { petTextBuilder} from './feature/PetTextFeature';
+import { toggleThemeClassWithFeatures } from './feature/ThemeFeature';
 
-const Results = ({ pets, theme }) => {
+const Results = ({ pets }) => {
   const [features,  ] = useFeatureData();
 
-
   return (
-    <div className={theme[0] == "dark" ? "search-hw" : "search"}>
+    <div className={toggleThemeClassWithFeatures((features), "search-hw", "search")}>
       {!pets.length ? (
         petTextBuilder(features)
       ) : (
@@ -25,7 +25,6 @@ const Results = ({ pets, theme }) => {
                 pet.contact.address.state
               }`}
               id={pet.id}
-              theme={theme}
             />
           );
         })
