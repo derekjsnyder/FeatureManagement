@@ -1,10 +1,8 @@
 import {getAllFeatureFlags } from './FeatureApi';
 
-//import { themeKey, themeBuilder } from './ThemeFeature';
-
 const localFlagPrefix = "hwfeature:";
 
-const isActiveFeature = feature => feature.IsActive === true;
+const isActiveFeature = feature => feature.IsActive === true || feature.IsActive === "true" ;
 
 // Returns collection of all feature flags currently enabled
 export async function getFeatures() {

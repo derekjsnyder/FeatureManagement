@@ -3,13 +3,13 @@ import Pet from "./Pet";
 
 import {useFeatureData} from "./feature/FeatureContext";
 import { petTextBuilder} from './feature/PetTextFeature';
+import { themeBuilder } from './feature/ThemeFeature';
 
 const Results = ({ pets, theme }) => {
   const [features,  ] = useFeatureData();
 
-
   return (
-    <div className={theme[0] == "dark" ? "search-hw" : "search"}>
+    <div className={themeBuilder(features) == "dark" ? "search-hw" : "search"}>
       {!pets.length ? (
         petTextBuilder(features)
       ) : (
