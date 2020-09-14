@@ -10,8 +10,6 @@ const Feedback = props => {
     });
   }
 
-  useEffect;
-
   return (
     <div>
       <form
