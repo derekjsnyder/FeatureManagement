@@ -3,8 +3,7 @@ import { getAllFeatureFlags, updateFeatureFlag } from "./feature/FeatureApi";
 import Feature from "./Feature";
 import Modal from "./Modal";
 import Feedback from "./Feedback";
-import ThemeContext from "./ThemeContext";
-
+import { useFeatureData } from "./feature/FeatureContext";
 const Admin = () => {
   const [features, setFeatures] = useState([]);
   const [showModal, setShowModal] = useState(false);
