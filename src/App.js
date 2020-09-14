@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect,useState} from "react";
 import ReactDOM from "react-dom";
 import { Router, Link } from "@reach/router";
 import Details from "./Details";
 import SearchParams from "./SearchParams";
 import Admin from "./Admin";
-import ThemeContext from "./ThemeContext";
-import { FeatureContextProvider } from "./feature/FeatureContext";
-import { getFeatureFlagByName } from "./feature/FeatureApi";
+import {themeBuilder } from './feature/ThemeFeature';
+import { FeatureContextProvider, useFeatureData } from "./feature/FeatureContext";
 
-const App = () => {
+// eslint-disable-next-line react/display-name
+const withHooksHOC = Component => props => {
+  const [features, refresh] = useFeatureData();
   const [theme, setTheme] = useState("");
 
-  async function getFeatureTheme() {
-    const { data } = await getFeatureFlagByName("dark");
-    if (data && data.IsActive === "true") {
-      setTheme(data.Feature);
-    }
-  }
+  useEffect(() => {
+    refresh();
+  }, []);
+
 
   useEffect(() => {
-    getFeatureTheme();
-  }, [theme]);
+    setTheme(themeBuilder(features));
+  }, [features]);
+
+  return <Component {...props} featureTheme={theme} />
+};
+
+const DetailsHooks = withHooksHOC(Details);
+
+const App = () => {
+
   return (
-    <ThemeContext.Provider value={[theme, setTheme]}>
       <FeatureContextProvider>
         <div>
           <header>
@@ -30,12 +36,11 @@ const App = () => {
           </header>
           <Router>
             <SearchParams path="/" />
-            <Details path="/details/:id" />
+            <DetailsHooks path="/details/:id" />
             <Admin path="/admin" />
           </Router>
         </div>
       </FeatureContextProvider>
-    </ThemeContext.Provider>
   );
 };
 

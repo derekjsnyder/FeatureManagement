@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
-import ThemeContext from "./ThemeContext";
+import {useFeatureData} from "./feature/FeatureContext";
+import ResultToggle from './ResultToggle';
+import {toggleThemeClassWithFeatures } from './feature/ThemeFeature';
 
 const SearchParams = () => {
-  const theme = useContext(ThemeContext);
+  const [features,  ] = useFeatureData();
   const [location, updateLocation] = useState("Seattle, WA");
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
@@ -18,9 +20,6 @@ const SearchParams = () => {
       breed,
       type: animal
     });
-
-    console.log("animals", animals);
-    console.log(theme);
 
     setPets(animals || []);
   }
@@ -36,7 +35,8 @@ const SearchParams = () => {
   }, [animal]);
 
   return (
-    <div className={theme[0] == "dark" ? "search-params-hw" : "search-params"}>
+    <>
+    <div className={toggleThemeClassWithFeatures((features), "search-params-hw", "search-params")}>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -56,8 +56,10 @@ const SearchParams = () => {
         <BreedDropdown />
         <button>Submit</button>
       </form>
-      <Results pets={pets} theme={theme} />
+      <Results pets={pets} />
     </div>
+    <ResultToggle />
+    </>
   );
 };
 
