@@ -20,9 +20,21 @@ function defaultClassName() {
 
 
 export function themeBuilder(features){
-    if ( isThemeEnabled(features)) {
+    if ( features && isThemeEnabled(features)) {
         return createTheme(darkThemeClassName);
     }
 
     return createTheme(defaultClassName);
+}
+
+export function toggleThemeClass(featureToggle, isTrue, isFalse) {
+    if (featureToggle == darkThemeClassName()) {
+        return isTrue;
+    }
+
+    return isFalse;
+}
+
+export function toggleThemeClassWithFeatures(features, isTrue, isFalse) {
+    return toggleThemeClass(themeBuilder(features), isTrue, isFalse);
 }
