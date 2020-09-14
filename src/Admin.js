@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { getAllFeatureFlags, updateFeatureFlag } from "./feature/FeatureApi";
 import Feature from "./Feature";
 import Modal from "./Modal";
-import ThemeContext from "./ThemeContext";
+import { useFeatureData } from "./feature/FeatureContext";
 
 const Admin = () => {
   const [features, setFeatures] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [theme, setTheme] = useContext(ThemeContext);
-
+  const [ , refreshFeatures ] = useFeatureData();
   async function getFeatures() {
     const { data } = await getAllFeatureFlags();
     const features = data.value.filter(feature => {
@@ -39,11 +38,7 @@ const Admin = () => {
       if (feature.RowKey === rowKey) feature.IsActive = value;
       return feature;
     });
-    if (updatedFeatures[0].Feature === "dark") {
-      updatedFeatures[0].IsActive === true
-        ? setTheme("dark")
-        : setTheme("none");
-    }
+    refreshFeatures();
 
     setFeatures(updatedFeatures);
   }

@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
-import ThemeContext from "./ThemeContext";
 import {useFeatureData} from "./feature/FeatureContext";
 import ResultToggle from './ResultToggle';
-import {themeBuilder } from './feature/ThemeFeature';
+import {toggleThemeClassWithFeatures } from './feature/ThemeFeature';
 
 const SearchParams = () => {
-  const theme = useContext(ThemeContext);
   const [features,  ] = useFeatureData();
   const [location, updateLocation] = useState("Seattle, WA");
   const [breeds, updateBreeds] = useState([]);
@@ -38,7 +36,7 @@ const SearchParams = () => {
 
   return (
     <>
-    <div className={themeBuilder(features) == "dark" ? "search-params-hw" : "search-params"}>
+    <div className={toggleThemeClassWithFeatures((features), "search-params-hw", "search-params")}>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -58,7 +56,7 @@ const SearchParams = () => {
         <BreedDropdown />
         <button>Submit</button>
       </form>
-      <Results pets={pets} theme={theme} />
+      <Results pets={pets} />
     </div>
     <ResultToggle />
     </>
