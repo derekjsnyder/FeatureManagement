@@ -9,7 +9,7 @@ const Results = ({ pets, theme }) => {
 
 
   return (
-    <div className={theme[0] == "dark" ? "search-params-hw" : "search-params"}>
+    <div className={theme[0] == "dark" ? "search-hw" : "search"}>
       {!pets.length ? (
         petTextBuilder(features)
       ) : (
