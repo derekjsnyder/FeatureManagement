@@ -43,17 +43,26 @@ The feature file has the following methods:
   - Factory method that returns either a default value (feature not toggled) or the alternate value based on if the feature is toggled.
 
 ### API
-- Azure Table Storage REST API
+- [Azure Table Storage](https://docs.microsoft.com/en-us/rest/api/storageservices/?redirectedfrom=MSDN) is a NoSQL data store that is used in this project to persist feature flags and feedback.  The data structure for each object is as follows:
+*Table Name: feedback*
+- PartitionKey - String *(System Defined)*
+- RowKey - String *(System Defined)*
+- Timestamp - DateTime *(System Defined)*
+- feedback - String *Feedback text*
+- featureType - String *Feature feedback is associated with*
+- feedbackDate - Int32  *Feedback date*
 
-### Types
-- Local Storage
-    - If property exists in local storage with a value of "true" - then feature is enabled
-    - Meant for feature toggles that users can enable/disable themselves
-- Admin Driven
-    - Admin page
-    - Toggle for all users
+*Table Name: featureflag*
+- PartitionKey - String *(System Defined)*
+- RowKey - String *(System Defined)*
+- Timestamp - DateTime *(System Defined)*
+- Feature - String *Name of feature*
+- IsActive - String *If Feature Is Active "true"/"false"*
+
+API calls to the *Azure Table Storage* service are located in the [FeatureAPI.js](src/feature/FeatureAPI.js) module.
 
 ### Feedback
+Dialog that appears when a feature flag is turned off.  A user or admin user can choose to either enter feedback for a feature, or close the dialog without feedback.
 
 ### Considered Out of Scope
 - User Management
