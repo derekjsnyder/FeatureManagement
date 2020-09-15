@@ -2,7 +2,7 @@
 ![Deploy Feature Management Application](https://github.com/derekjsnyder/FeatureManagement/workflows/Deploy%20Feature%20Management%20Application/badge.svg)
 
 ### Implementation Details
-- Database - Azure Storage Table API.
+- Database/Back-End - Azure Storage Table API.
 - React application based off of [Front End Masters Course](https://bit.ly/react-v5).  For technical details about original project this code was based on refer to [README-orig.md](README-orig.md)
 - Hosted in [Azure CDN](https://clinicalabendpointdev.azureedge.net)
 
@@ -41,17 +41,6 @@ The feature file has the following methods:
   - Method returning the key name for the feature.  This corresponds to the key of the feature in the database, or the feature in local storage.
   - Predicate for determining if key is present in feature collection.  This will always take a collection of values and return a boolean.
   - Factory method that returns either a default value (feature not toggled) or the alternate value based on if the feature is toggled.
-
-  - Abstract if statements
-  - Functions to handle feature types
-    - Components / strings /etc...
-
-  - Feature:
-    - Key
-    - Predicate
-    - Builder / Factory
-        - Contains if statement to check for flag
-
 
 ### API
 - Azure Table Storage REST API
