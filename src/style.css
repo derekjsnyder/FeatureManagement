@@ -254,6 +254,20 @@ header {
   border: 1px solid cornflowerblue;
 }
 
+.feedback-form {
+}
+
+.feedback-form label {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.feedback-form textarea {
+  margin-top: 10px;
+  display: block;
+  margin: 10px auto 10px auto;
+}
+
 #modal {
   background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
@@ -282,6 +296,15 @@ header {
 #modal .buttons button {
   display: inline-block;
   margin-right: 15px;
+}
+
+#modal .close-modal-button {
+  margin-left: 15px;
+  font-size: 10px;
+  color: black;
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 1129px) {

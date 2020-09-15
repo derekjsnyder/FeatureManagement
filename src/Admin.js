@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { getAllFeatureFlags, updateFeatureFlag } from "./feature/FeatureApi";
 import Feature from "./Feature";
 import Modal from "./Modal";
+import Feedback from "./Feedback";
 import { useFeatureData } from "./feature/FeatureContext";
-
 const Admin = () => {
   const [features, setFeatures] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [ , refreshFeatures ] = useFeatureData();
+  const [, refreshFeatures] = useFeatureData();
   async function getFeatures() {
     const { data } = await getAllFeatureFlags();
     const features = data.value.filter(feature => {
@@ -50,24 +50,31 @@ const Admin = () => {
   return (
     <div className="admin">
       <div className="admin-header">Admin Settings</div>
-      {showModal ? (
-        <Modal>
-          <h1>FEEDBACK</h1>
-          <div className="buttons">
-            <button>Yes</button>
-            <button onClick={closeModal}>No, I am a monster</button>
-          </div>
-        </Modal>
-      ) : null}
+
       <ul className="flex-outer">
         {features.map(feature => {
           return (
-            <Feature
-              feature={feature}
-              updateFeature={updateFeature}
-              key={feature.RowKey}
-              updateFeatureValue={updateFeatureValue}
-            />
+            <div key={feature.RowKey}>
+              {showModal ? (
+                <Modal>
+                  <Feedback
+                    featureId={feature.RowKey}
+                    closeModal={closeModal}
+                  />
+                  <div className="buttons">
+                    <button className="close-modal-button" onClick={closeModal}>
+                      close
+                    </button>
+                  </div>
+                </Modal>
+              ) : null}
+              <Feature
+                feature={feature}
+                updateFeature={updateFeature}
+                key={feature.RowKey}
+                updateFeatureValue={updateFeatureValue}
+              />
+            </div>
           );
         })}
       </ul>
